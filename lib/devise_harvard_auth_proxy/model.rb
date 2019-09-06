@@ -83,10 +83,11 @@ module Devise
 
           unless Devise.disable_token_authenticity_checks
             # check against ip address.
-            unless user_ip == external_ip
-              Rails.logger.warn("Failure: user_ip #{user_ip} doesn't match external_ip #{external_ip}")
-              return false
-            end
+            # Commented out until we deal with load balancer by adding X-Forwarded-For
+            # unless user_ip == external_ip
+            #   Rails.logger.warn("Failure: user_ip #{user_ip} doesn't match external_ip #{external_ip}")
+            #   return false
+            # end
 
             # check for expired time_stamp
             now = Time.now
