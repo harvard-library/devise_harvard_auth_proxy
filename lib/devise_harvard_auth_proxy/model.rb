@@ -37,7 +37,7 @@ module Devise
         def decrypt_authzproxy_token(encrypted_message)
           begin
             command = [
-              Devise.gpg_path, 
+              Devise.gpg_path,
               '--decrypt',
               ((Devise.gpg_home.nil?) ? '' : "--homedir=#{Devise.gpg_home}"),
               ((Devise.gpg_passphrase.nil?) ? '' : "--passphrase=#{Devise.gpg_passphrase}"),"--no-tty", '2>', '/dev/null'
@@ -83,13 +83,23 @@ module Devise
 
           unless Devise.disable_token_authenticity_checks
             # check against ip address.
-            return false unless user_ip == external_ip
+            unless user_ip == external_ip
+              Rails.logger.warn("Failure: user_ip #{user_ip} doesn't match external_ip #{external_ip}")
+              return false
+            end
 
             # check for expired time_stamp
-            return false if Time.parse(time_stamp).localtime + 120 < Time.now
+            now = Time.now
+            if Time.parse(time_stamp).localtime + 120 < now
+              Rails.logger.warn("Failure: Timestamp value + 120 #{Time.parse(time_stamp).localtime + 120} is greater than now #{now}")
+              return false
+            end
 
             # check for invalid application ID
-            return false if app_id != Devise.authen_application
+            if app_id != Devise.authen_application
+              Rails.logger.warn("Failure: app_id #{app_id} != Devise.authen_application #{Devise.authen_application}")
+              return false
+            end
           end
 
           return authentication_info

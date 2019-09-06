@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
     "README"
   ]
   s.files = [
-    "README",
+    "README.md",
     "Rakefile",
     "VERSION",
     "app/controllers/devise/hauthproxy_controller.rb",

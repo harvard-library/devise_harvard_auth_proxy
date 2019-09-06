@@ -29,7 +29,6 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = 'DeviseHarvardAuthProxy'
   rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('README')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
@@ -40,9 +39,9 @@ begin
     gemspec.name = "devise_harvard_auth_proxy"
     gemspec.summary = "Harvard Auth Proxy authentication module for Devise"
     gemspec.description = "Harvard Auth Proxy module for Devise"
-    gemspec.email = "djcp@cyber.law.harvard.edu"
-    gemspec.homepage = "http://github.com/berkmancenter/devise_harvard_auth_proxy"
-    gemspec.authors = ["Dan Collis-Puro"]
+    gemspec.email = "oss-at-harvard-library@hulmail.harvard.edu"
+    gemspec.homepage = "http://github.com/harvard-library/devise_harvard_auth_proxy"
+    gemspec.authors = ["Dan Collis-Puro", "Anita Patel", "Dave Mayo"]
     gemspec.add_runtime_dependency "devise", "~> 1.4.0"
   end
   Jeweler::GemcutterTasks.new
