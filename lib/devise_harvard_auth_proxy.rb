@@ -24,7 +24,7 @@ module Devise
   @@pin_url = 'https://www.pin1.harvard.edu/pin/authenticate?__authen_application='
 
   @@find_resource = Proc.new do |klass, user_info, authentication_info|
-    klass.find(:first, :conditions => { Devise.app_unique_user_column => user_info[Devise.pin_unique_user_attribute]})
+    klass.where(Devise.app_unique_user_column => user_info[Devise.pin_unique_user_attribute]).first
   end
   @@creation_attributes = Proc.new do |user,user_info,authentication_info|
     Rails.logger.warn("User in proc: #{user.inspect}") if Devise.debug
